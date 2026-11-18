@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chadha Jeddi — ePortfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Layout: fiche technique d'ingénieur — colonne de lecture, sections étiquetées comme des broches */
+  --bg: #f4f6f8;
+  --surface: #ffffff;
+  --ink: #0f1d2e;
+  --muted: #5a6878;
+  --line: #d6dde5;
+  --accent: #0a6e8a;
+  --accent-soft: #e2f0f4;
+  --todo: #b7791f;
+  --font-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", Roboto, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0c141d; --surface: #131e2a; --ink: #e6edf3; --muted: #93a3b4;
+    --line: #243445; --accent: #4cc3e0; --accent-soft: #14303b; --todo: #e3a74a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0c141d; --surface: #131e2a; --ink: #e6edf3; --muted: #93a3b4;
+  --line: #243445; --accent: #4cc3e0; --accent-soft: #14303b; --todo: #e3a74a;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+.wrap { max-width: 980px; margin: 0 auto; padding: 0 20px; }
+
+/* Nav */
+nav { border-bottom: 1px solid var(--line); background: var(--surface); position: sticky; top: 0; z-index: 5; }
+nav .wrap { display: flex; gap: 20px; align-items: center; justify-content: space-between; height: 56px; }
+nav .brand { font-family: var(--font-mono); font-size: .9rem; color: var(--ink); text-decoration: none; font-weight: 500; }
+nav ul { list-style: none; display: flex; gap: 18px; margin: 0; padding: 0; overflow-x: auto; }
+nav ul a { color: var(--muted); text-decoration: none; font-size: .92rem; white-space: nowrap; }
+nav ul a:hover { color: var(--accent); }
+
+/* Hero */
+.hero { padding: 56px 0 40px; display: grid; grid-template-columns: 1.15fr .85fr; gap: 40px; align-items: center; }
+.eyebrow { font-family: var(--font-mono); font-size: .82rem; color: var(--accent); letter-spacing: .04em; margin: 0 0 12px; }
+h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(2.4rem, 6vw, 3.6rem); line-height: 1.05; margin: 0 0 16px; letter-spacing: -0.02em; text-wrap: balance; }
+.lead { font-size: 1.15rem; color: var(--muted); max-width: 34em; margin: 0 0 24px; }
+.tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 28px; padding: 0; list-style: none; }
+.tags li { font-family: var(--font-mono); font-size: .82rem; padding: 5px 10px; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn { display: inline-block; padding: 10px 18px; border-radius: 6px; font-weight: 600; font-size: .95rem; text-decoration: none; border: 1px solid var(--accent); }
+.btn.primary { background: var(--accent); color: var(--surface); }
+.btn.ghost { color: var(--accent); background: transparent; }
+
+.entity {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 8px;
+  font-family: var(--font-mono); font-size: .85rem; line-height: 1.7;
+  padding: 20px 22px; overflow-x: auto; margin: 0;
+}
+.entity .k { color: var(--accent); font-weight: 500; }
+.entity .c { color: var(--muted); }
+.wave { display: block; width: 100%; height: 44px; margin-top: 14px; }
+.wave path { fill: none; stroke: var(--accent); stroke-width: 2; }
+.wave line { stroke: var(--line); stroke-width: 1; }
+
+/* Sections */
+section.block { padding: 48px 0; border-top: 1px solid var(--line); }
+.sec-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 24px; }
+.pin { font-family: var(--font-mono); font-size: .8rem; color: var(--accent); background: var(--accent-soft); padding: 3px 8px; border-radius: 4px; }
+h2 { font-family: var(--font-display); font-weight: 700; font-size: 1.75rem; margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
+h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; margin: 0 0 6px; text-wrap: balance; }
+p { max-width: 65ch; }
+
+.about { display: grid; grid-template-columns: 1fr; gap: 12px; }
+
+/* Timeline */
+.timeline { display: grid; gap: 16px; }
+.step { display: grid; grid-template-columns: 150px 1fr; gap: 20px; padding: 20px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; }
+.step .when { font-family: var(--font-mono); font-size: .85rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.step .where { color: var(--muted); margin: 0 0 8px; font-size: .95rem; }
+.step p { margin: 0; }
+
+/* Domain grid */
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 20px; display: flex; flex-direction: column; gap: 8px; }
+.card .label { font-family: var(--font-mono); font-size: .78rem; color: var(--accent); }
+.card p { margin: 0; color: var(--muted); font-size: .97rem; }
+
+/* Projects */
+.projects { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.project { background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 8px; padding: 20px; display: flex; flex-direction: column; gap: 10px; }
+.project .meta { font-family: var(--font-mono); font-size: .8rem; color: var(--muted); }
+.project p { margin: 0; }
+.stack { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 0; padding: 0; }
+.stack li { font-family: var(--font-mono); font-size: .75rem; padding: 3px 8px; background: var(--accent-soft); color: var(--ink); border-radius: 3px; }
+
+/* Skills */
+.skills { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.skills dl { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 20px; }
+.skills dt { font-family: var(--font-mono); font-size: .8rem; color: var(--accent); margin-bottom: 6px; }
+.skills dd { margin: 0 0 14px; }
+.skills dd:last-child { margin-bottom: 0; }
+
+/* Contact */
+.contact { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.contact .card a { font-weight: 500; word-break: break-word; }
+
+/* À compléter */
+.todo { color: var(--todo); border-bottom: 1px dashed var(--todo); }
+.todo-note { font-family: var(--font-mono); font-size: .78rem; color: var(--todo); }
+
+footer { border-top: 1px solid var(--line); padding: 28px 0 40px; color: var(--muted); font-size: .88rem; }
+
+@media (max-width: 760px) {
+  .hero { grid-template-columns: 1fr; padding-top: 36px; gap: 28px; }
+  .grid3, .projects, .skills, .contact { grid-template-columns: 1fr; }
+  .step { grid-template-columns: 1fr; gap: 6px; }
+  nav ul { gap: 14px; }
+  nav .brand { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+html { scroll-behavior: smooth; }
+section[id] { scroll-margin-top: 70px; }
+</style>
+</head>
+<body>
+
+<nav aria-label="Navigation principale">
+  <div class="wrap">
+    <a class="brand" href="#top">chadha_jeddi</a>
+    <ul>
+      <li><a href="#apropos">À propos</a></li>
+      <li><a href="#parcours">Parcours</a></li>
+      <li><a href="#projets">Projets</a></li>
+      <li><a href="#competences">Compétences</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="wrap" id="top">
+
+  <header class="hero">
+    <div>
+      <p class="eyebrow">ePortfolio · Élève en école d'ingénieurs</p>
+      <h1>Chadha Jeddi</h1>
+      <p class="lead">Génie électrique à l'ENIT, en double diplôme en génie électronique à Toulouse INP‑ENSEEIHT (N7). Je m'intéresse à l'IA embarquée, à la conception numérique en VHDL et à l'électronique.</p>
+      <ul class="tags" aria-label="Domaines">
+        <li>IA embarquée</li>
+        <li>VHDL / FPGA</li>
+        <li>Électronique</li>
+      </ul>
+      <div class="cta">
+        <a class="btn primary" href="#projets">Voir mes projets</a>
+        <a class="btn ghost" href="#contact">Me contacter</a>
+      </div>
+    </div>
+
+    <div aria-hidden="true">
+<pre class="entity"><span class="k">entity</span> chadha_jeddi <span class="k">is</span>
+  <span class="k">port</span> (
+    formation : <span class="k">in</span>  ENIT &amp; N7;
+    domaines  : <span class="k">in</span>  IA_embarquee,
+                    VHDL, electronique;
+    projets   : <span class="k">out</span> portfolio
+  );
+<span class="k">end entity</span>;  <span class="c">-- génie électrique</span></pre>
+      <svg class="wave" viewBox="0 0 320 44" preserveAspectRatio="none">
+        <line x1="0" y1="38" x2="320" y2="38"></line>
+        <path d="M0 38 H20 V8 H60 V38 H100 V8 H140 V38 H180 V8 H220 V38 H260 V8 H300 V38 H320"></path>
+      </svg>
+    </div>
+  </header>
+
+  <section class="block" id="apropos">
+    <div class="sec-head"><span class="pin">01</span><h2>À propos</h2></div>
+    <div class="about">
+      <p>Élève en génie électrique à l'École Nationale d'Ingénieurs de Tunis (ENIT), je poursuis un double diplôme en génie électronique à l'ENSEEIHT à Toulouse. Mon objectif est de concevoir des systèmes électroniques intelligents, du circuit jusqu'à l'algorithme embarqué.</p>
+      <p><span class="todo">Ajoute ici 2 à 3 phrases sur toi : ce qui te motive, ton projet professionnel, le type de stage ou de poste que tu vises.</span></p>
+    </div>
+  </section>
+
+  <section class="block" id="parcours">
+    <div class="sec-head"><span class="pin">02</span><h2>Parcours</h2></div>
+    <div class="timeline">
+      <article class="step">
+        <div class="when"><span class="todo">20XX – 20XX</span></div>
+        <div>
+          <h3>Double diplôme — Génie électronique</h3>
+          <p class="where">Toulouse INP‑ENSEEIHT (N7), Toulouse</p>
+          <p><span class="todo">Spécialité ou parcours suivi, matières clés.</span></p>
+        </div>
+      </article>
+      <article class="step">
+        <div class="when"><span class="todo">20XX – 20XX</span></div>
+        <div>
+          <h3>Cycle ingénieur — Génie électrique</h3>
+          <p class="where">École Nationale d'Ingénieurs de Tunis (ENIT), Tunis</p>
+          <p><span class="todo">Matières clés, classement ou mention si tu le souhaites.</span></p>
+        </div>
+      </article>
+      <article class="step">
+        <div class="when"><span class="todo">20XX – 20XX</span></div>
+        <div>
+          <h3><span class="todo">Classes préparatoires / formation précédente</span></h3>
+          <p class="where"><span class="todo">Établissement, ville</span></p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="block" id="domaines">
+    <div class="sec-head"><span class="pin">03</span><h2>Domaines d'intérêt</h2></div>
+    <div class="grid3">
+      <div class="card">
+        <span class="label">AI @ edge</span>
+        <h3>IA embarquée</h3>
+        <p>Déployer des modèles d'apprentissage sur microcontrôleurs et FPGA, avec des contraintes de mémoire, de latence et de consommation.</p>
+      </div>
+      <div class="card">
+        <span class="label">RTL design</span>
+        <h3>VHDL et FPGA</h3>
+        <p>Conception numérique, machines à états, simulation et synthèse de circuits sur cible FPGA.</p>
+      </div>
+      <div class="card">
+        <span class="label">Hardware</span>
+        <h3>Électronique</h3>
+        <p>Électronique analogique et numérique, conception de cartes, mesure et instrumentation.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="projets">
+    <div class="sec-head"><span class="pin">04</span><h2>Projets</h2></div>
+    <div class="projects">
+      <article class="project">
+        <span class="meta"><span class="todo">Projet d'école · 20XX</span></span>
+        <h3><span class="todo">Titre du projet 1 (ex. VHDL / FPGA)</span></h3>
+        <p><span class="todo">Objectif, ce que tu as fait, résultat obtenu.</span></p>
+        <ul class="stack"><li>VHDL</li><li>FPGA</li></ul>
+      </article>
+      <article class="project">
+        <span class="meta"><span class="todo">Projet personnel · 20XX</span></span>
+        <h3><span class="todo">Titre du projet 2 (ex. IA embarquée)</span></h3>
+        <p><span class="todo">Objectif, ce que tu as fait, résultat obtenu.</span></p>
+        <ul class="stack"><li>IA embarquée</li></ul>
+      </article>
+      <article class="project">
+        <span class="meta"><span class="todo">Stage · 20XX</span></span>
+        <h3><span class="todo">Stage ou projet 3</span></h3>
+        <p><span class="todo">Entreprise, missions, résultat obtenu.</span></p>
+        <ul class="stack"><li>Électronique</li></ul>
+      </article>
+      <article class="project">
+        <span class="meta"><span class="todo">À compléter</span></span>
+        <h3><span class="todo">Projet 4 (optionnel)</span></h3>
+        <p><span class="todo">Tu peux supprimer cette carte si tu as 3 projets.</span></p>
+      </article>
+    </div>
+  </section>
+
+  <section class="block" id="competences">
+    <div class="sec-head"><span class="pin">05</span><h2>Compétences</h2></div>
+    <div class="skills">
+      <dl>
+        <dt>Conception numérique</dt>
+        <dd>VHDL, FPGA <span class="todo">(outils : Vivado, Quartus, ModelSim…)</span></dd>
+        <dt>Électronique</dt>
+        <dd><span class="todo">Analogique, numérique, logiciels de CAO (KiCad, LTspice…)</span></dd>
+        <dt>IA embarquée</dt>
+        <dd><span class="todo">Python, frameworks, cibles (STM32, Raspberry Pi…)</span></dd>
+      </dl>
+      <dl>
+        <dt>Programmation</dt>
+        <dd><span class="todo">C, Python, MATLAB…</span></dd>
+        <dt>Langues</dt>
+        <dd><span class="todo">Arabe, français, anglais (niveau)</span></dd>
+        <dt>Savoir‑être</dt>
+        <dd><span class="todo">Travail en équipe, adaptabilité (double diplôme)…</span></dd>
+      </dl>
+    </div>
+  </section>
+
+  <section class="block" id="contact">
+    <div class="sec-head"><span class="pin">06</span><h2>Contact</h2></div>
+    <div class="contact">
+      <div class="card">
+        <span class="label">E‑mail</span>
+        <span class="todo">ton.email@exemple.com</span>
+      </div>
+      <div class="card">
+        <span class="label">GitHub</span>
+        <a href="https://github.com/chadhajeddi-ux">github.com/chadhajeddi-ux</a>
+      </div>
+      <div class="card">
+        <span class="label">LinkedIn</span>
+        <span class="todo">linkedin.com/in/ton-profil</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">© 2026 Chadha Jeddi · ENIT × Toulouse INP‑ENSEEIHT</div>
+</footer>
+
+</body>
+</html>
